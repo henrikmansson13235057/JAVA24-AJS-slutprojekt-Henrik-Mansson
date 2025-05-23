@@ -9,6 +9,7 @@ import App from "./App"; // Måste matcha namnet exakt
 
 
 
+
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
