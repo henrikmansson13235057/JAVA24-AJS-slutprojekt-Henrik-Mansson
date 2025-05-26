@@ -25,7 +25,7 @@ const MemberForm = ({ onAddMember, user, members = [] }) => {
   return (
     <>
       <form onSubmit={handleSubmit} className="p-4 border rounded mb-6">
-        <h2 className="text-xl font-semibold mb-2">Lägg till medlem</h2>
+        
 
         {!user && (
           <input
@@ -43,25 +43,15 @@ const MemberForm = ({ onAddMember, user, members = [] }) => {
           </p>
         )}
 
-        <select
-          value={role}
-          onChange={(e) => setRole(e.target.value)}
-          className="border p-2 w-full mb-2"
-        >
-          <option value="ux">UX</option>
-          <option value="frontend">Frontend</option>
-          <option value="backend">Backend</option>
-        </select>
+        
 
-        <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded">
-          Lägg till
-        </button>
+      
       </form>
 
       <div className="bg-white p-4 rounded shadow max-w-md mx-auto">
         <h2 className="text-xl font-bold mb-3">Alla medlemmar</h2>
         {members.length === 0 ? (
-          <p className="text-gray-500">Inga medlemmar finns</p>
+          <p className="text-gray-500"></p>
         ) : (
           <ul className="space-y-2 max-h-48 overflow-y-auto">
             {members.map((m) => (
