@@ -1,10 +1,10 @@
 {
   "files": {
-    "main.js": "/scrum-board/static/js/main.441f5166.js",
-    "index.html": "/scrum-board/index.html",
-    "main.441f5166.js.map": "/scrum-board/static/js/main.441f5166.js.map"
+    "main.js": "/JAVA24-AJS-slutprojekt-Henrik-Mansson/static/js/main.e215f25d.js",
+    "index.html": "/JAVA24-AJS-slutprojekt-Henrik-Mansson/index.html",
+    "main.e215f25d.js.map": "/JAVA24-AJS-slutprojekt-Henrik-Mansson/static/js/main.e215f25d.js.map"
   },
   "entrypoints": [
-    "static/js/main.441f5166.js"
+    "static/js/main.e215f25d.js"
   ]
 }
