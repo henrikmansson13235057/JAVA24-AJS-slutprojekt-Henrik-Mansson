@@ -2,7 +2,8 @@
   "name": "scrum-board",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://henrikmansson.github.io/scrum-board",
+  "homepage": "https://henrikmansson13235057.github.io/JAVA24-AJS-slutprojekt-Henrik-Mansson",
+
   "dependencies": {
     "@testing-library/dom": "^10.4.0",
     "@testing-library/jest-dom": "^6.6.3",
