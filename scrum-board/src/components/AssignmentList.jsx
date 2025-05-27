@@ -39,30 +39,52 @@ const AssignmentList = ({ assignments, filters, sortBy, members, user }) => {
     }
   };
 
+  const listItemStyle = {
+    padding: "1rem",
+    border: "1px solid #ccc",
+    borderRadius: "8px",
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "center",
+    marginBottom: "0.5rem",
+  };
+
+  const buttonStyle = {
+    padding: "0.5rem 0.75rem",
+    borderRadius: "4px",
+    color: "white",
+    border: "none",
+    cursor: "pointer",
+    marginLeft: "0.5rem",
+  };
+
+  const selectStyle = {
+    padding: "0.25rem 0.5rem",
+    border: "1px solid #ccc",
+    borderRadius: "4px",
+  };
+
   return (
-    <div className="mt-4">
+    <div style={{ marginTop: "1rem" }}>
       {filtered.length === 0 ? (
-        <p className="text-gray-500">Inga uppgifter</p>
+        <p style={{ color: "#666" }}>Inga uppgifter</p>
       ) : (
-        <ul className="space-y-2">
+        <ul style={{ listStyle: "none", padding: 0 }}>
           {filtered.map((a) => (
-            <li
-              key={a.id}
-              className="p-3 border rounded flex justify-between items-center"
-            >
+            <li key={a.id} style={listItemStyle}>
               <div>
-                <p className="font-medium">{a.title}</p>
-                <p className="text-sm text-gray-600">
+                <p style={{ fontWeight: "bold" }}>{a.title}</p>
+                <p style={{ fontSize: "0.9rem", color: "#666" }}>
                   {a.timestamp?.toDate().toLocaleString()} – {a.category}
                 </p>
-                {a.member && <p className="text-sm">Tilldelad: {a.member}</p>}
+                {a.member && <p style={{ fontSize: "0.9rem" }}>Tilldelad: {a.member}</p>}
               </div>
-              <div className="space-x-2 flex items-center">
+              <div style={{ display: "flex", alignItems: "center" }}>
                 {a.status === "new" && (
                   <>
                     <select
                       onChange={(e) => assignToMember(a.id, e.target.value)}
-                      className="border p-1"
+                      style={selectStyle}
                       defaultValue=""
                     >
                       <option value="">Tilldela...</option>
@@ -77,31 +99,39 @@ const AssignmentList = ({ assignments, filters, sortBy, members, user }) => {
 
                     {user &&
                       (!a.member || a.member === "") &&
-                      // Visa "Ta emot"-knappen ENDAST om användarens roll matchar uppgiftens kategori
                       user.role === a.category && (
                         <button
                           onClick={() => assignToMember(a.id, user.name)}
-                          className="bg-blue-500 text-white px-2 py-1 rounded ml-2"
+                          style={{
+                            ...buttonStyle,
+                            backgroundColor: "#3b82f6", // blå
+                          }}
                         >
                           Ta emot
                         </button>
                       )}
                   </>
                 )}
-                {a.status === "in progress" && (
-                  a.member === user.name && (
-                    <button
-                      onClick={() => markAsDone(a.id)}
-                      className="bg-green-500 text-white px-2 py-1 rounded"
-                    >
-                      Klart
-                    </button>
-                  )
+
+                {a.status === "in progress" && a.member === user.name && (
+                  <button
+                    onClick={() => markAsDone(a.id)}
+                    style={{
+                      ...buttonStyle,
+                      backgroundColor: "#10b981", // grön
+                    }}
+                  >
+                    Klart
+                  </button>
                 )}
+
                 {a.status === "finished" && (
                   <button
                     onClick={() => deleteAssignment(a.id)}
-                    className="bg-red-500 text-white px-2 py-1 rounded"
+                    style={{
+                      ...buttonStyle,
+                      backgroundColor: "#ef4444", // röd
+                    }}
                   >
                     Radera
                   </button>

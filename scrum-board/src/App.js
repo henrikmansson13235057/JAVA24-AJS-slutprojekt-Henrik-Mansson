@@ -3,10 +3,6 @@ import AssignmentForm from "./components/AssignmentForm";
 import AssignmentList from "./components/AssignmentList";
 import FilterSortBar from "./components/FilterSortBar";
 import MemberForm from "./components/MemberForm";
-import './index.css'; // eller din fil
-
-
-
 
 
 import { auth, db } from "./firebase/firebase";
@@ -32,14 +28,12 @@ const App = () => {
   const [members, setMembers] = useState([]);
   const [filters, setFilters] = useState({ category: "", member: "" });
   const [sortBy, setSortBy] = useState("timestamp-desc");
-
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [user, setUser] = useState(null);
   const [isRegistering, setIsRegistering] = useState(false);
   const [role, setRole] = useState("ux");
 
-  // Realtime updates for assignments
   useEffect(() => {
     const unsubscribe = onSnapshot(collection(db, "assignments"), (snapshot) => {
       const data = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
@@ -48,7 +42,6 @@ const App = () => {
     return () => unsubscribe();
   }, []);
 
-  // Fetch all members for assignment dropdown
   useEffect(() => {
     const fetchMembers = async () => {
       const snapshot = await getDocs(collection(db, "members"));
@@ -58,7 +51,6 @@ const App = () => {
       }));
       setMembers(data);
     };
-
     fetchMembers();
   }, []);
 
@@ -82,9 +74,8 @@ const App = () => {
   };
 
   const handleAddMember = async (name, role) => {
-    const newMember = { name, category: role };
     try {
-      await addDoc(collection(db, "members"), newMember);
+      await addDoc(collection(db, "members"), { name, category: role });
     } catch (error) {
       alert("Kunde inte lägga till medlem: " + error.message);
     }
@@ -144,53 +135,83 @@ const App = () => {
   };
 
   const markAsDone = (assignmentId) => {
-  const assignment = assignments.find(a => a.id === assignmentId);
-  if (!assignment) return;
+    const assignment = assignments.find((a) => a.id === assignmentId);
+    if (!assignment) return;
+    if (assignment.assignedTo !== user.email) {
+      alert("Du kan bara markera dina egna uppgifter som klara.");
+      return;
+    }
 
-  // Kontrollera att uppgiften tillhör den inloggade användaren
-  if (assignment.assignedTo !== user.email) {
-    alert("Du kan bara markera dina egna uppgifter som klara.");
-    return;
-  }
+    const updatedAssignments = assignments.map((a) =>
+      a.id === assignmentId ? { ...a, status: "finished" } : a
+    );
+    setAssignments(updatedAssignments);
+  };
 
-  // Uppdatera status till "finished"
-  const updatedAssignments = assignments.map(a =>
-    a.id === assignmentId ? { ...a, status: "finished" } : a
-  );
+  const appStyle = {
+    minHeight: "100vh",
+    padding: "1.5rem",
+    fontFamily: "sans-serif",
+    maxWidth: "1000px",
+    margin: "0 auto",
+    backgroundColor: "#f3f4f6",
+  };
 
-  setAssignments(updatedAssignments);
-};
+  const cardStyle = {
+    backgroundColor: "#fff",
+    padding: "1rem",
+    borderRadius: "12px",
+    boxShadow: "0 0 10px rgba(0,0,0,0.1)",
+  };
 
+  const headingStyle = {
+    fontSize: "2.5rem",
+    fontWeight: "bold",
+    textAlign: "center",
+    color: "#2563eb",
+    marginBottom: "2rem",
+  };
+
+  const buttonStyle = {
+    backgroundColor: "#dc2626",
+    color: "#fff",
+    padding: "0.5rem 1rem",
+    borderRadius: "6px",
+    border: "none",
+    cursor: "pointer",
+  };
 
   return (
-    <div className="min-h-screen bg-gray-100 p-6 font-sans max-w-5xl mx-auto">
-      <h1 className="text-4xl font-bold text-center mb-8 text-blue-600">Scrum Board</h1>
+    <div style={appStyle}>
+      <h1 style={headingStyle}>Scrum Board</h1>
 
       {!user && (
-        <div className="max-w-md mx-auto bg-white p-6 rounded shadow">
-          <h2 className="text-2xl mb-4">{isRegistering ? "Registrera" : "Logga in"}</h2>
+        <div style={{ ...cardStyle, maxWidth: "400px", margin: "0 auto" }}>
+          <h2 style={{ fontSize: "1.5rem", marginBottom: "1rem" }}>
+            {isRegistering ? "Registrera" : "Logga in"}
+          </h2>
           <form onSubmit={isRegistering ? handleRegister : handleLogin}>
             <input
               type="email"
               placeholder="Email"
-              className="border p-2 w-full mb-3"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
+              style={{ ...inputStyle }}
             />
             <input
               type="password"
               placeholder="Lösenord"
-              className="border p-2 w-full mb-3"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
+              style={{ ...inputStyle }}
             />
             {isRegistering && (
               <select
                 value={role}
                 onChange={(e) => setRole(e.target.value)}
-                className="border p-2 w-full mb-3"
+                style={{ ...inputStyle }}
               >
                 <option value="ux">UX</option>
                 <option value="frontend">Frontend</option>
@@ -199,14 +220,22 @@ const App = () => {
             )}
             <button
               type="submit"
-              className="bg-blue-600 text-white px-4 py-2 rounded w-full"
+              style={{
+                backgroundColor: "#2563eb",
+                color: "white",
+                padding: "0.5rem",
+                width: "100%",
+                borderRadius: "4px",
+                border: "none",
+                cursor: "pointer",
+              }}
             >
               {isRegistering ? "Registrera" : "Logga in"}
             </button>
           </form>
           <button
             onClick={() => setIsRegistering(!isRegistering)}
-            className="mt-4 text-blue-600 underline"
+            style={{ marginTop: "1rem", color: "#2563eb", textDecoration: "underline" }}
           >
             {isRegistering ? "Har redan konto? Logga in" : "Har inte konto? Registrera"}
           </button>
@@ -215,25 +244,21 @@ const App = () => {
 
       {user && (
         <>
-          <div className="flex justify-between items-center mb-6">
+          <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "1.5rem" }}>
             <p>
               Inloggad som <strong>{user.email}</strong> ({user.role})
             </p>
-            <button
-              onClick={handleLogout}
-              className="bg-red-500 text-white px-3 py-1 rounded"
-            >
+            <button onClick={handleLogout} style={buttonStyle}>
               Logga ut
             </button>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-            <div className="bg-white rounded-xl shadow-md p-4">
+          <div style={{ display: "flex", gap: "1.5rem", marginBottom: "2rem", flexWrap: "wrap" }}>
+            <div style={{ flex: 1, minWidth: "300px", ...cardStyle }}>
               <AssignmentForm onAddAssignment={handleAddAssignment} />
               <MemberForm onAddMember={handleAddMember} user={user} />
             </div>
-
-            <div className="text-center mb-6 md:col-span-2 bg-white rounded-xl shadow-md p-4">
+            <div style={{ flex: 2, minWidth: "300px", ...cardStyle }}>
               <FilterSortBar
                 filters={filters}
                 setFilters={setFilters}
@@ -244,17 +269,21 @@ const App = () => {
             </div>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div style={{ display: "flex", gap: "1rem", flexWrap: "wrap" }}>
             {["new", "in progress", "finished"].map((status) => (
-              <div key={status}>
+              <div key={status} style={{ flex: 1, minWidth: "250px" }}>
                 <h2
-                  className={`text-xl font-bold mb-2 ${
-                    status === "new"
-                      ? "text-red-500"
-                      : status === "in progress"
-                      ? "text-yellow-500"
-                      : "text-green-600"
-                  }`}
+                  style={{
+                    fontSize: "1.25rem",
+                    fontWeight: "bold",
+                    marginBottom: "0.5rem",
+                    color:
+                      status === "new"
+                        ? "#ef4444"
+                        : status === "in progress"
+                        ? "#f59e0b"
+                        : "#16a34a",
+                  }}
                 >
                   {status === "new" && "🆕 Ny"}
                   {status === "in progress" && "🚧 Pågår"}
@@ -274,6 +303,14 @@ const App = () => {
       )}
     </div>
   );
+};
+
+const inputStyle = {
+  padding: "0.5rem",
+  width: "100%",
+  marginBottom: "0.75rem",
+  border: "1px solid #ccc",
+  borderRadius: "4px",
 };
 
 export default App;

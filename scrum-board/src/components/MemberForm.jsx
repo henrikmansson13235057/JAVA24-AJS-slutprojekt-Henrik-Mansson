@@ -24,38 +24,33 @@ const MemberForm = ({ onAddMember, user, members = [] }) => {
 
   return (
     <>
-      <form onSubmit={handleSubmit} className="p-4 border rounded mb-6">
-        
-
+      <form onSubmit={handleSubmit} style={{ padding: "1rem", border: "1px solid #ccc", borderRadius: "5px", marginBottom: "1rem" }}>
         {!user && (
           <input
             type="text"
             value={name}
             onChange={(e) => setName(e.target.value)}
             placeholder="Namn"
-            className="border p-2 w-full mb-2"
+            style={{ padding: "0.5rem", width: "100%", marginBottom: "0.5rem", boxSizing: "border-box" }}
           />
         )}
 
         {user && (
-          <p className="mb-2">
+          <p style={{ marginBottom: "0.5rem" }}>
             <strong>{user.name}</strong> (inloggad som <em>{user.role}</em>)
           </p>
         )}
-
-        
-
-      
+        <button type="submit">Lägg till medlem</button>
       </form>
 
-      <div className="bg-white p-4 rounded shadow max-w-md mx-auto">
-        <h2 className="text-xl font-bold mb-3">Alla medlemmar</h2>
+      <div style={{ backgroundColor: "#fff", padding: "1rem", borderRadius: "5px", maxWidth: "400px", margin: "0 auto", boxShadow: "0 0 5px rgba(0,0,0,0.1)" }}>
+        <h2 style={{ fontSize: "1.25rem", fontWeight: "bold", marginBottom: "0.75rem" }}>Alla medlemmar</h2>
         {members.length === 0 ? (
-          <p className="text-gray-500"></p>
+          <p style={{ color: "#777" }}>Inga medlemmar ännu.</p>
         ) : (
-          <ul className="space-y-2 max-h-48 overflow-y-auto">
+          <ul style={{ listStyleType: "none", padding: 0, maxHeight: "200px", overflowY: "auto" }}>
             {members.map((m) => (
-              <li key={m.id} className="border-b pb-1">
+              <li key={m.id} style={{ borderBottom: "1px solid #ddd", paddingBottom: "0.5rem", marginBottom: "0.5rem" }}>
                 <p>
                   <strong>{m.name}</strong> ({m.category})
                 </p>

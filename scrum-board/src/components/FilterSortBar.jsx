@@ -1,13 +1,26 @@
-
 import React from "react";
 
 const FilterSortBar = ({ filters, setFilters, sortBy, setSortBy, members }) => {
+  const containerStyle = {
+    display: "flex",
+    flexWrap: "wrap",
+    alignItems: "center",
+    gap: "1rem",
+    margin: "1rem 0",
+  };
+
+  const selectStyle = {
+    padding: "0.5rem",
+    border: "1px solid #ccc",
+    borderRadius: "4px",
+  };
+
   return (
-    <div className="flex flex-wrap items-center gap-4 my-4">
+    <div style={containerStyle}>
       <select
         value={filters.category}
         onChange={(e) => setFilters((f) => ({ ...f, category: e.target.value }))}
-        className="border p-2"
+        style={selectStyle}
       >
         <option value="">Alla kategorier</option>
         <option value="ux">UX</option>
@@ -18,7 +31,7 @@ const FilterSortBar = ({ filters, setFilters, sortBy, setSortBy, members }) => {
       <select
         value={filters.member}
         onChange={(e) => setFilters((f) => ({ ...f, member: e.target.value }))}
-        className="border p-2"
+        style={selectStyle}
       >
         <option value="">Alla medlemmar</option>
         {members.map((m) => (
@@ -31,7 +44,7 @@ const FilterSortBar = ({ filters, setFilters, sortBy, setSortBy, members }) => {
       <select 
         value={sortBy} 
         onChange={(e) => setSortBy(e.target.value)} 
-        className="border p-2"
+        style={selectStyle}
       >
         <option value="timestamp-desc">Nyast först</option>
         <option value="timestamp-asc">Äldst först</option>
