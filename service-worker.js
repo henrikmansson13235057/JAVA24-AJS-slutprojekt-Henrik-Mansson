@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/JAVA24-AJS-slutprojekt-Henrik-Mansson/precache-manifest.1af5b1054e6a1c3c5582ca9d46ff3565.js"
+  "/JAVA24-AJS-slutprojekt-Henrik-Mansson/precache-manifest.1d7319de15a257d1b2178d506872f8c3.js"
 );
 
 self.addEventListener('message', (event) => {
