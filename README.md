@@ -1,6 +1,6 @@
 # Scrum Board – React-projekt
 
-Det här projektet är en Scrum board utvecklad med React och bundlad med Parcel. Användaren kan skapa teammedlemmar, uppgifter och tilldela roller (UX, frontend, backend). Projektet använder Firebase för Google-inloggning och Firestore för datalagring. 
+Det här projektet är en Scrum board utvecklad med React och bundlad med Parcel. Användaren kan skapa teammedlemmar, uppgifter och tilldela roller (UX, frontend, backend). Projektet använder Firebase för inloggning och Firestore för datalagring. 
 
 ## Teknologier
 React används för UI, Parcel som bundler, Firebase för autentisering och datalagring.
