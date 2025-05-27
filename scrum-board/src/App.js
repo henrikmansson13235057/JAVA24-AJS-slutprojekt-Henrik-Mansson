@@ -3,6 +3,11 @@ import AssignmentForm from "./components/AssignmentForm";
 import AssignmentList from "./components/AssignmentList";
 import FilterSortBar from "./components/FilterSortBar";
 import MemberForm from "./components/MemberForm";
+import './index.css'; // eller din fil
+
+
+
+
 
 import { auth, db } from "./firebase/firebase";
 import {
