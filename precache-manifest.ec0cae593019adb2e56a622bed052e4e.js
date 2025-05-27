@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "0e675f36ad5e63d34943acc16b7a7669",
+    "revision": "03a7d1eda8ae2394b539125edc551f42",
     "url": "/JAVA24-AJS-slutprojekt-Henrik-Mansson/index.html"
   },
   {
@@ -8,8 +8,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/JAVA24-AJS-slutprojekt-Henrik-Mansson/static/js/2.d0e2e870.chunk.js"
   },
   {
-    "revision": "3b7b126f6e5523f82e3b",
-    "url": "/JAVA24-AJS-slutprojekt-Henrik-Mansson/static/js/main.e3df1064.chunk.js"
+    "revision": "6a7dc4f62e11d7915164",
+    "url": "/JAVA24-AJS-slutprojekt-Henrik-Mansson/static/js/main.79fa7e3d.chunk.js"
   },
   {
     "revision": "0f5c6d9a97d8c892f19b",
