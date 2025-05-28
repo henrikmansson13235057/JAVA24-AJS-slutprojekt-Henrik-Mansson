@@ -79,20 +79,24 @@ const AssignmentList = ({ assignments, filters, sortBy, members, user }) => {
                 </p>
                 {a.member && <p style={{ fontSize: "0.9rem" }}>Tilldelad: {a.member}</p>}
               </div>
-              <div style={{ display: "flex", alignItems: "center" }}>
+              <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-end", gap: "0.5rem", minWidth: "150px" }}>
                 {a.status === "new" && (
                   <>
                     <select
                       onChange={(e) => assignToMember(a.id, e.target.value)}
-                      style={selectStyle}
+                      style={{...selectStyle, width: "140px"}}
                       defaultValue=""
                     >
                       <option value="">Tilldela...</option>
                       {members
-                        .filter((m) => m.category === a.category)
+                        .filter((m) => 
+                          m.role === 'ux' || 
+                          m.role === 'frontend' || 
+                          m.role === 'backend'
+                        )
                         .map((m) => (
                           <option key={m.id} value={m.name}>
-                            {m.name}
+                            {m.name} ({m.role})
                           </option>
                         ))}
                     </select>
@@ -105,6 +109,8 @@ const AssignmentList = ({ assignments, filters, sortBy, members, user }) => {
                           style={{
                             ...buttonStyle,
                             backgroundColor: "#3b82f6", // blå
+                            marginLeft: "0", // Ta bort margin
+                            width: "140px" // Samma bredd som dropdown
                           }}
                         >
                           Ta emot
@@ -119,6 +125,8 @@ const AssignmentList = ({ assignments, filters, sortBy, members, user }) => {
                     style={{
                       ...buttonStyle,
                       backgroundColor: "#10b981", // grön
+                      marginLeft: "0",
+                      width: "140px"
                     }}
                   >
                     Klart
@@ -131,6 +139,8 @@ const AssignmentList = ({ assignments, filters, sortBy, members, user }) => {
                     style={{
                       ...buttonStyle,
                       backgroundColor: "#ef4444", // röd
+                      marginLeft: "0",
+                      width: "140px"
                     }}
                   >
                     Radera

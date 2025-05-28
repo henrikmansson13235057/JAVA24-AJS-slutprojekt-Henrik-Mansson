@@ -4,7 +4,6 @@ import AssignmentList from "./components/AssignmentList";
 import FilterSortBar from "./components/FilterSortBar";
 import MemberForm from "./components/MemberForm";
 
-
 import { auth, db } from "./firebase/firebase";
 import {
   signInWithEmailAndPassword,
@@ -42,11 +41,14 @@ const App = () => {
     return () => unsubscribe();
   }, []);
 
+  // Använd users collection för medlemmar så båda dropdowns är synkroniserade
   useEffect(() => {
     const fetchMembers = async () => {
-      const snapshot = await getDocs(collection(db, "members"));
+      const snapshot = await getDocs(collection(db, "users"));
       const data = snapshot.docs.map((doc) => ({
         id: doc.id,
+        name: doc.data().name || doc.data().email,
+        category: doc.data().role, // Mappa role till category för filtrering
         ...doc.data(),
       }));
       setMembers(data);
@@ -75,7 +77,21 @@ const App = () => {
 
   const handleAddMember = async (name, role) => {
     try {
-      await addDoc(collection(db, "members"), { name, category: role });
+      // Lägg till i users collection så det syns i båda dropdowns
+      await addDoc(collection(db, "users"), { 
+        name, 
+        role: role,
+        email: `${name.toLowerCase().replace(/\s+/g, '')}@temp.com` // Temporär email
+      });
+      
+      // Uppdatera members state direkt
+      const newMember = {
+        id: Date.now().toString(), // Temporärt ID
+        name,
+        category: role,
+        role: role
+      };
+      setMembers(prev => [...prev, newMember]);
     } catch (error) {
       alert("Kunde inte lägga till medlem: " + error.message);
     }
@@ -123,6 +139,15 @@ const App = () => {
       alert("Registrering lyckades!");
       setEmail("");
       setPassword("");
+      
+      // Uppdatera members efter registrering
+      const newMember = {
+        id: uid,
+        name: email,
+        category: role,
+        role: role
+      };
+      setMembers(prev => [...prev, newMember]);
     } catch (error) {
       alert("Fel vid registrering: " + error.message);
     }
