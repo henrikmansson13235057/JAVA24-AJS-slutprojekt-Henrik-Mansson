@@ -41,14 +41,14 @@ const App = () => {
     return () => unsubscribe();
   }, []);
 
-  // Använd users collection för medlemmar så båda dropdowns är synkroniserade
+  
   useEffect(() => {
     const fetchMembers = async () => {
       const snapshot = await getDocs(collection(db, "users"));
       const data = snapshot.docs.map((doc) => ({
         id: doc.id,
         name: doc.data().name || doc.data().email,
-        category: doc.data().role, // Mappa role till category för filtrering
+        category: doc.data().role, 
         ...doc.data(),
       }));
       setMembers(data);
@@ -77,16 +77,16 @@ const App = () => {
 
   const handleAddMember = async (name, role) => {
     try {
-      // Lägg till i users collection så det syns i båda dropdowns
+   
       await addDoc(collection(db, "users"), { 
         name, 
         role: role,
-        email: `${name.toLowerCase().replace(/\s+/g, '')}@temp.com` // Temporär email
+        email: `${name.toLowerCase().replace(/\s+/g, '')}@temp.com` 
       });
       
-      // Uppdatera members state direkt
+      
       const newMember = {
-        id: Date.now().toString(), // Temporärt ID
+        id: Date.now().toString(), 
         name,
         category: role,
         role: role
@@ -140,7 +140,7 @@ const App = () => {
       setEmail("");
       setPassword("");
       
-      // Uppdatera members efter registrering
+      
       const newMember = {
         id: uid,
         name: email,
