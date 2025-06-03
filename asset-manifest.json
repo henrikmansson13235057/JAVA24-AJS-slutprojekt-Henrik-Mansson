@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.js": "/JAVA24-AJS-slutprojekt-Henrik-Mansson/static/js/main.a0e2471c.chunk.js",
-    "main.js.map": "/JAVA24-AJS-slutprojekt-Henrik-Mansson/static/js/main.a0e2471c.chunk.js.map",
+    "main.js": "/JAVA24-AJS-slutprojekt-Henrik-Mansson/static/js/main.066df658.chunk.js",
+    "main.js.map": "/JAVA24-AJS-slutprojekt-Henrik-Mansson/static/js/main.066df658.chunk.js.map",
     "runtime~main.js": "/JAVA24-AJS-slutprojekt-Henrik-Mansson/static/js/runtime~main.4e2f93ed.js",
     "runtime~main.js.map": "/JAVA24-AJS-slutprojekt-Henrik-Mansson/static/js/runtime~main.4e2f93ed.js.map",
     "static/js/2.d0e2e870.chunk.js": "/JAVA24-AJS-slutprojekt-Henrik-Mansson/static/js/2.d0e2e870.chunk.js",
     "static/js/2.d0e2e870.chunk.js.map": "/JAVA24-AJS-slutprojekt-Henrik-Mansson/static/js/2.d0e2e870.chunk.js.map",
     "index.html": "/JAVA24-AJS-slutprojekt-Henrik-Mansson/index.html",
-    "precache-manifest.9aabd83188ad9e00e232dc6b53814769.js": "/JAVA24-AJS-slutprojekt-Henrik-Mansson/precache-manifest.9aabd83188ad9e00e232dc6b53814769.js",
+    "precache-manifest.7c9b569449bfd4c4658ba785fea6d274.js": "/JAVA24-AJS-slutprojekt-Henrik-Mansson/precache-manifest.7c9b569449bfd4c4658ba785fea6d274.js",
     "service-worker.js": "/JAVA24-AJS-slutprojekt-Henrik-Mansson/service-worker.js"
   }
 }
